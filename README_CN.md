@@ -8,7 +8,9 @@
 <p align="center">
   <img src="https://repository-images.githubusercontent.com/254842585/4dfa7580-7ffb-11ea-99d0-46b8fe2f4170" height="175" width="auto" />
 </p>
+
 [英文版](README.md)
+
 # ModernCppStarter
 
 创建一个新的C++项目通常需要大量的准备工作和模板代码，尤其是对于有测试、可执行文件和持续集成的现代C++项目而言。
