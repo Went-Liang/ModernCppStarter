@@ -8,25 +8,26 @@
 <p align="center">
   <img src="https://repository-images.githubusercontent.com/254842585/4dfa7580-7ffb-11ea-99d0-46b8fe2f4170" height="175" width="auto" />
 </p>
-[中文版](README_CN.md)
+[英文版](README.md)
 # ModernCppStarter
 
-Setting up a new C++ project usually requires a significant amount of preparation and boilerplate code, even more so for modern C++ projects with tests, executables and continuous integration.
-This template is the result of learnings from many previous projects and should help reduce the work required to setup up a modern C++ project.
+创建一个新的C++项目通常需要大量的准备工作和模板代码，尤其是对于有测试、可执行文件和持续集成的现代C++项目而言。
+这个模板是从多个以前的项目中获得的经验总结，应该有助于减少设置一个现代C++项目所需的工作量。
 
 ## Features
 
-- [Modern CMake practices](https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/)
-- Suited for single header libraries and projects of any scale
-- Clean separation of library and executable code
-- Integrated test suite
-- Continuous integration via [GitHub Actions](https://help.github.com/en/actions/)
-- Code coverage via [codecov](https://codecov.io)
-- Code formatting enforced by [clang-format](https://clang.llvm.org/docs/ClangFormat.html) and [cmake-format](https://github.com/cheshirekow/cmake_format) via [Format.cmake](https://github.com/TheLartians/Format.cmake)
-- Reproducible dependency management via [CPM.cmake](https://github.com/TheLartians/CPM.cmake)
-- Installable target with automatic versioning information and header generation via [PackageProject.cmake](https://github.com/TheLartians/PackageProject.cmake)
-- Automatic [documentation](https://thelartians.github.io/ModernCppStarter) and deployment with [Doxygen](https://www.doxygen.nl) and [GitHub Pages](https://pages.github.com)
-- Support for [sanitizer tools, and more](#additional-tools)
+- [现代 CMake 实践](https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/)
+- 适用于任何规模项目，无论单头文件库还是大型项目
+- 库和可执行代码的干净分离
+- 集成测试套件
+- 通过[GitHub Actions](https://help.github.com/en/actions/)实现持续集成CI：使用GitHub的自动化工具，每次代码更改时都会触发一系列的测试、构建和部署任务
+- 通过[codecov](https://codecov.io)进行代码覆盖率分析：分析测试套件覆盖了多少代码，帮助开发者找出未被测试覆盖的代码部分
+- 通过 [Format.cmake](https://github.com/TheLartians/Format.cmake)强制使用[clang-format](https://clang.llvm.org/docs/ClangFormat.html)和 [cmake-format](https://github.com/cheshirekow/cmake_format)规范代码格式 
+- 通过 [CPM.cmake](https://github.com/TheLartians/CPM.cmake)实现可重复的依赖管理：管理项目的依赖，确保在不同环境或不同时间构建项目时，依赖的版本都是一致的
+
+- 通过[PackageProject.cmake](https://github.com/TheLartians/PackageProject.cmake)生成可安装的目标，并自动包含版本信息和头文件
+- 使用 [Doxygen](https://www.doxygen.nl)  和 [GitHub Pages](https://pages.github.com) 自动实现[documentation](https://thelartians.github.io/ModernCppStarter)和部署：Doxygen是一个用于从源代码中生成文档的工具，而GitHub Pages则是一个用于托管静态网页的平台。结合两者，可以自动地从代码生成文档，并部署到网页上供人查阅
+- 支持 [sanitizer tools等](#additional-tools)：sanitizer工具通常用于内存错误检测，如地址越界、内存泄漏等。这个功能意味着该工具或框架集成了对这类工具的支持，以帮助开发者更好地检测代码中的潜在问题
 
 ## Usage
 
