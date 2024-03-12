@@ -21,7 +21,7 @@
 - [现代 CMake 实践](https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/)
 - 适用于任何规模项目，无论单头文件库还是大型项目
 - 库和可执行代码的干净分离
-- 集成测试套件
+- 集成测试套件：包含了一组用于测试代码功能的测试用例，确保代码的质量和稳定性
 - 通过[GitHub Actions](https://help.github.com/en/actions/)实现持续集成CI：使用GitHub的自动化工具，每次代码更改时都会触发一系列的测试、构建和部署任务
 - 通过[codecov](https://codecov.io)进行代码覆盖率分析：分析测试套件覆盖了多少代码，帮助开发者找出未被测试覆盖的代码部分
 - 通过 [Format.cmake](https://github.com/TheLartians/Format.cmake)强制使用[clang-format](https://clang.llvm.org/docs/ClangFormat.html)和 [cmake-format](https://github.com/cheshirekow/cmake_format)规范代码格式 
@@ -31,28 +31,25 @@
 - 使用 [Doxygen](https://www.doxygen.nl)  和 [GitHub Pages](https://pages.github.com) 自动实现[documentation](https://thelartians.github.io/ModernCppStarter)和部署：Doxygen是一个用于从源代码中生成文档的工具，而GitHub Pages则是一个用于托管静态网页的平台。结合两者，可以自动地从代码生成文档，并部署到网页上供人查阅
 - 支持 [sanitizer tools等](#additional-tools)：sanitizer工具通常用于内存错误检测，如地址越界、内存泄漏等。这个功能意味着该工具或框架集成了对这类工具的支持，以帮助开发者更好地检测代码中的潜在问题
 
-## Usage
+## 使用
 
-### Adjust the template to your needs
+### 按需调整模版
 
-- Use this repo [as a template](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template).
-- Replace all occurrences of "Greeter" in the relevant CMakeLists.txt with the name of your project
-  - Capitalization matters here: `Greeter` means the name of the project, while `greeter` is used in file names.
-  - Remember to rename the `include/greeter` directory to use your project's lowercase name and update all relevant `#include`s accordingly.
-- Replace the source files with your own
-- For header-only libraries: see the comments in [CMakeLists.txt](CMakeLists.txt)
-- Add [your project's codecov token](https://docs.codecov.io/docs/quick-start) to your project's github secrets under `CODECOV_TOKEN`
-- Happy coding!
+- 使用这个仓库 [as a template](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template).
+- 在相关的CMakeLists.txt文件中，将所有出现的“Greeter”替换为您的项目名称
+  - 这里大小写很重要：Greeter表示项目名称，而greeter用于文件名
+  - 记得将include/greeter目录重命名为您的项目的小写名称，并相应地更新所有相关的#include指令
+- 用您自己的源文件替换它们  
+- 对于仅包含头文件的库：请查[CMakeLists.txt](CMakeLists.txt)中的注释 
+- 将您项目的[codecov令牌](https://docs.codecov.io/docs/quick-start)添加到您的项目的github密钥下，键名为`CODECOV_TOKEN`
 
-Eventually, you can remove any unused files, such as the standalone directory or irrelevant github workflows for your project.
-Feel free to replace the License with one suited for your project.
+最后，您可以删除任何未使用的文件，例如独立的目录或与您的项目无关的github工作流程。请随意将许可证替换为适合您项目的许可证。
 
-To cleanly separate the library and subproject code, the outer `CMakeList.txt` only defines the library itself while the tests and other subprojects are self-contained in their own directories. 
-During development it is usually convenient to [build all subprojects at once](#build-everything-at-once).
+为了清晰地分离库和子项目代码，外部的CMakeList.txt文件仅定义了库本身，而测试和其他子项目则包含在其自己的目录中。在开发过程中，通常方便的是[一次性构建所有子项目](#build-everything-at-once)。
 
-### Build and run the standalone target
+### 构建并运行独立目标
 
-Use the following command to build and run the executable target.
+使用以下命令构建并运行可执行目标
 
 ```bash
 cmake -S standalone -B build/standalone
@@ -60,9 +57,9 @@ cmake --build build/standalone
 ./build/standalone/Greeter --help
 ```
 
-### Build and run test suite
+### 构建并运行测试套件
 
-Use the following commands from the project's root directory to run the test suite.
+从项目的根目录使用以下命令来运行测试套件
 
 ```bash
 cmake -S test -B build/test
@@ -73,12 +70,12 @@ CTEST_OUTPUT_ON_FAILURE=1 cmake --build build/test --target test
 ./build/test/GreeterTests
 ```
 
-To collect code coverage information, run CMake with the `-DENABLE_TEST_COVERAGE=1` option.
+要收集代码覆盖率信息，请使用`-DENABLE_TEST_COVERAGE=1`选项运行 CMake。
 
-### Run clang-format
+### 运行 clang-format
 
-Use the following commands from the project's root directory to check and fix C++ and CMake source style.
-This requires _clang-format_, _cmake-format_ and _pyyaml_ to be installed on the current system.
+从项目的根目录使用以下命令来检查和修复 C++ 和 CMake 源代码样式。
+这需要在当前系统上安装 _clang-format_、_cmake-format_ 和 _pyyaml_。
 
 ```bash
 cmake -S test -B build/test
@@ -90,17 +87,17 @@ cmake --build build/test --target format
 cmake --build build/test --target fix-format
 ```
 
-See [Format.cmake](https://github.com/TheLartians/Format.cmake) for details.
-These dependencies can be easily installed using pip.
+查看 [Format.cmake](https://github.com/TheLartians/Format.cmake) 细节
 
+可以用pip安装上述依赖：
 ```bash
 pip install clang-format==14.0.6 cmake_format==0.6.11 pyyaml
 ```
 
-### Build the documentation
+### 构建文档
 
-The documentation is automatically built and [published](https://thelartians.github.io/ModernCppStarter) whenever a [GitHub Release](https://help.github.com/en/github/administering-a-repository/managing-releases-in-a-repository) is created.
-To manually build documentation, call the following command.
+每当创建 [GitHub Release](https://help.github.com/en/github/administering-a-repository/managing-releases-in-a-repository) 时，都会自动构建和[发布](https://thelartians.github.io/ModernCppStarter)文档。
+要手动构建文档，请调用以下命令。
 
 ```bash
 cmake -S documentation -B build/doc
@@ -109,12 +106,12 @@ cmake --build build/doc --target GenerateDocs
 open build/doc/doxygen/html/index.html
 ```
 
-To build the documentation locally, you will need Doxygen, jinja2 and Pygments installed on your system.
+要在本地构建文档，您需要在系统上安装 Doxygen、jinja2 和 Pygments。
 
-### Build everything at once
+### 一次性构建所有内容
 
-The project also includes an `all` directory that allows building all targets at the same time.
-This is useful during development, as it exposes all subprojects to your IDE and avoids redundant builds of the library.
+该项目还包括一个“all”目录，允许同时构建所有目标。
+这在开发过程中非常有用，因为它将所有子项目公开给您的 IDE，并避免了库的冗余构建。
 
 ```bash
 cmake -S all -B build
@@ -130,81 +127,91 @@ cmake --build build --target fix-format
 cmake --build build --target GenerateDocs
 ```
 
-### Additional tools
+### 附加工具
+测试和独立的子项目包含了[tools.cmake](cmake/tools.cmake) 文件，该文件用于通过CMake配置参数按需导入额外的工具。
 
-The test and standalone subprojects include the [tools.cmake](cmake/tools.cmake) file which is used to import additional tools on-demand through CMake configuration arguments.
-The following are currently supported.
+目前支持以下功能：
 
 #### Sanitizers
 
-Sanitizers can be enabled by configuring CMake with `-DUSE_SANITIZER=<Address | Memory | MemoryWithOrigins | Undefined | Thread | Leak | 'Address;Undefined'>`.
+可以通过配置 CMake 来启用Sanitizers`-DUSE_SANITIZER=<Address | Memory | MemoryWithOrigins | Undefined | Thread | Leak | 'Address;Undefined'>`.
 
 #### Static Analyzers
 
-Static Analyzers can be enabled by setting `-DUSE_STATIC_ANALYZER=<clang-tidy | iwyu | cppcheck>`, or a combination of those in quotation marks, separated by semicolons.
-By default, analyzers will automatically find configuration files such as `.clang-format`.
-Additional arguments can be passed to the analyzers by setting the `CLANG_TIDY_ARGS`, `IWYU_ARGS` or `CPPCHECK_ARGS` variables.
+静态分析器可以通过设置 -DUSE_STATIC_ANALYZER=<clang-tidy | iwyu | cppcheck> 来启用，或者将这些选项用引号括起来并用分号分隔，以组合使用多个分析器。
+
+默认情况下，分析器会自动查找如 .clang-format 这样的配置文件。
+
+可以通过设置 CLANG_TIDY_ARGS、IWYU_ARGS 或 CPPCHECK_ARGS 变量来向分析器传递额外的参数。
 
 #### Ccache
 
-Ccache can be enabled by configuring with `-DUSE_CCACHE=<ON | OFF>`.
+可以通过配置 CMake 来启用Ccache`-DUSE_CCACHE=<ON | OFF>`.
+
+>Ccache是一个编译器缓存。它会在编译器编译时存储信息，以供下一次编译时使用，从而大大加快编译速度。Ccache以空间换取速度，特别适合经常进行“make clean”操作或删除输出目录后重新编译的情况。通过使用Ccache，无论是普通编译还是大型项目的编译，都可以显著提高编译速度，通常可以提高5到10倍。
 
 ## FAQ
 
-> Can I use this for header-only libraries?
+> 我可以将其用于header-only库吗？
 
-Yes, however you will need to change the library type to an `INTERFACE` library as documented in the [CMakeLists.txt](CMakeLists.txt).
-See [here](https://github.com/TheLartians/StaticTypeInfo) for an example header-only library based on the template.
+是的，但是您需要将库类型更改为 INTERFACE 库，如[CMakeLists.txt](CMakeLists.txt)中所述。
 
-> I don't need a standalone target / documentation. How can I get rid of it?
+请参阅[此处](https://github.com/TheLartians/StaticTypeInfo)，了解基于模板的header-only库示例。
 
-Simply remove the standalone / documentation directory and according github workflow file.
+> 我不需要standalone target / documentation。我怎样才能摆脱它？
 
-> Can I build the standalone and tests at the same time? / How can I tell my IDE about all subprojects?
+只需删除 standalone / documentation目录并根据 github 工作流程文件即可。
 
-To keep the template modular, all subprojects derived from the library have been separated into their own CMake modules.
-This approach makes it trivial for third-party projects to re-use the projects library code.
-To allow IDEs to see the full scope of the project, the template includes the `all` directory that will create a single build for all subprojects.
-Use this as the main directory for best IDE support.
+> 我可以同时构建独立的子项目和测试吗？/ 我如何告诉我的集成开发环境（IDE）所有子项目的信息？
 
-> I see you are using `GLOB` to add source files in CMakeLists.txt. Isn't that evil?
+为了保持模板的模块化，所有从库中派生的子项目都被分隔到它们自己的CMake模块中。
+这种做法使得第三方项目重用项目库代码变得轻而易举。
+为了让集成开发环境（IDE）能够看到项目的全部范围，模板中包含了all目录，该目录将为所有子项目创建一个单独的构建。
+为了获得最佳的IDE支持，请将此目录作为主目录使用。
 
-Glob is considered bad because any changes to the source file structure [might not be automatically caught](https://cmake.org/cmake/help/latest/command/file.html#filesystem) by CMake's builders and you will need to manually invoke CMake on changes.
-  I personally prefer the `GLOB` solution for its simplicity, but feel free to change it to explicitly listing sources.
+> 我看到您正在使用“GLOB”在 CMakeLists.txt 中添加源文件。 这不是evil邪恶的吗？
 
-> I want create additional targets that depend on my library. Should I modify the main CMakeLists to include them?
+Glob 被认为是不好的，因为对源文件结构的任何更改[可能不会被 CMake 的构建器自动捕获](https://cmake.org/cmake/help/latest/command/file.html#filesystem)，并且您需要在更改时手动调用 CMake。
 
-Avoid including derived projects from the libraries CMakeLists (even though it is a common sight in the C++ world), as this effectively inverts the dependency tree and makes the build system hard to reason about.
-Instead, create a new directory or project with a CMakeLists that adds the library as a dependency (e.g. like the [standalone](standalone/CMakeLists.txt) directory).
-Depending type it might make sense move these components into a separate repositories and reference a specific commit or version of the library.
-This has the advantage that individual libraries and components can be improved and updated independently.
+我个人更喜欢 GLOB 解决方案，因为它简单，且可以随意将其更改为显式列出源。
 
-> You recommend to add external dependencies using CPM.cmake. Will this force users of my library to use CPM.cmake as well?
+> 我想创建依赖于我的库的其他目标。我应该修改主 CMakeLists 以包含它们吗？
 
-[CPM.cmake](https://github.com/TheLartians/CPM.cmake) should be invisible to library users as it's a self-contained CMake Script.
-If problems do arise, users can always opt-out by defining the CMake or env variable [`CPM_USE_LOCAL_PACKAGES`](https://github.com/cpm-cmake/CPM.cmake#options), which will override all calls to `CPMAddPackage` with the according `find_package` call.
-This should also enable users to use the project with their favorite external C++ dependency manager, such as vcpkg or Conan.
+避免在库的CMakeLists中包含派生项目（尽管这在C++世界中很常见），因为这实际上会颠倒依赖树，使构建系统难以理解。
 
-> Can I configure and build my project offline?
+相反，创建一个包含CMakeLists的新目录或项目，并将库作为依赖项添加（例如，像[standalone目录](standalone/CMakeLists.txt)那样）。
 
-No internet connection is required for building the project, however when using CPM missing dependencies are downloaded at configure time.
-To avoid redundant downloads, it's highly recommended to set a CPM.cmake cache directory, e.g.: `export CPM_SOURCE_CACHE=$HOME/.cache/CPM`.
-This will enable shallow clones and allow offline configurations dependencies are already available in the cache.
+根据类型，将这些组件移到单独的存储库中，并引用库的特定提交或版本，这样做可能更有意义。
 
-> Can I use CPack to create a package installer for my project?
+这样做的优点在于，可以独立地改进和更新各个库和组件。
 
-As there are a lot of possible options and configurations, this is not (yet) in the scope of this template. See the [CPack documentation](https://cmake.org/cmake/help/latest/module/CPack.html) for more information on setting up CPack installers.
+> 您建议使用 CPM.cmake 添加外部依赖项。 这会迫使我的库的用户也使用 CPM.cmake 吗？
 
-> This is too much, I just want to play with C++ code and test some libraries.
+[CPM.cmake](https://github.com/TheLartians/CPM.cmake) 应该对库用户来说是透明的，因为它是一个独立的 CMake 脚本。
+如果出现问题，用户可以通过定义 CMake 或环境变量 [`CPM_USE_LOCAL_PACKAGES`](https://github.com/cpm-cmake/CPM.cmake#options) 来选择退出，这将用相应的 find_package 调用覆盖所有对 CPMAddPackage 的调用。
+这也应该允许用户使用他们最喜欢的外部 C++ 依赖管理器（如 vcpkg 或 Conan）与项目一起使用。
 
-Perhaps the [MiniCppStarter](https://github.com/TheLartians/MiniCppStarter) is something for you!
+> 我可以在离线状态下配置和构建我的项目吗？
 
-## Related projects and alternatives
+构建项目不需要互联网连接，但在使用 CPM 时，缺少的依赖项会在配置时下载。
 
-- [**ModernCppStarter & PVS-Studio Static Code Analyzer**](https://github.com/viva64/pvs-studio-cmake-examples/tree/master/modern-cpp-starter): Official instructions on how to use the ModernCppStarter with the PVS-Studio Static Code Analyzer.
-- [**cpp-best-practices/gui_starter_template**](https://github.com/cpp-best-practices/gui_starter_template/): A popular C++ starter project, created in 2017.
-- [**filipdutescu/modern-cpp-template**](https://github.com/filipdutescu/modern-cpp-template): A recent starter using a more traditional approach for CMake structure and dependency management.
-- [**vector-of-bool/pitchfork**](https://github.com/vector-of-bool/pitchfork/): Pitchfork is a Set of C++ Project Conventions.
+为了避免冗余的下载，强烈建议设置一个 CPM.cmake 缓存目录，例如：export CPM_SOURCE_CACHE=$HOME/.cache/CPM。
+这将启用浅克隆，并允许在缓存中已存在依赖项时进行离线配置。
+
+> 我可以使用 CPack 为我的项目创建包安装程序吗？
+
+由于存在很多可能的选项和配置，这（还）不在此模板的范围内。有关设置 CPack 安装程序的更多信息，请参阅 [CPack documentation](https://cmake.org/cmake/help/latest/module/CPack.html) 。
+
+> 这太复杂了，我只想玩一下 C++ 代码并测试一些库
+
+也许 [MiniCppStarter](https://github.com/TheLartians/MiniCppStarter) 适合你！
+
+## 相关项目和替代方案
+
+- [**ModernCppStarter & PVS-Studio Static Code Analyzer**](https://github.com/viva64/pvs-studio-cmake-examples/tree/master/modern-cpp-starter): 有关如何将 ModernCppStarter 与 PVS-Studio 静态代码分析器结合使用的官方说明。
+- [**cpp-best-practices/gui_starter_template**](https://github.com/cpp-best-practices/gui_starter_template/): 一个流行的 C++ 入门项目，创建于 2017 年。
+- [**filipdutescu/modern-cpp-template**](https://github.com/filipdutescu/modern-cpp-template):最近的初学者使用更传统的 CMake 结构和依赖管理方法。
+- [**vector-of-bool/pitchfork**](https://github.com/vector-of-bool/pitchfork/): Pitchfork 是一组 C++ 项目约定。
 
 ## Star History
 
