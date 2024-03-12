@@ -26,6 +26,9 @@
 - 通过[codecov](https://codecov.io)进行代码覆盖率分析：分析测试套件覆盖了多少代码，帮助开发者找出未被测试覆盖的代码部分
 - 通过 [Format.cmake](https://github.com/TheLartians/Format.cmake)强制使用[clang-format](https://clang.llvm.org/docs/ClangFormat.html)和 [cmake-format](https://github.com/cheshirekow/cmake_format)规范代码格式 
 - 通过 [CPM.cmake](https://github.com/TheLartians/CPM.cmake)实现可重复的依赖管理：管理项目的依赖，确保在不同环境或不同时间构建项目时，依赖的版本都是一致的
+  >在CMake中，CPM是一个基于CMake的优秀依赖管理器，特别适用于C++项目。它是一个轻量级的依赖管理工具，设计目标是简单、高效。CPM不需要任何外部依赖项，可以直接集成到CMake项目中。只要电脑连接了互联网，任何CMake C++项目都可借助CPM添加外部依赖库。
+
+
 
 - 通过[PackageProject.cmake](https://github.com/TheLartians/PackageProject.cmake)生成可安装的目标，并自动包含版本信息和头文件
 - 使用 [Doxygen](https://www.doxygen.nl)  和 [GitHub Pages](https://pages.github.com) 自动实现[documentation](https://thelartians.github.io/ModernCppStarter)和部署：Doxygen是一个用于从源代码中生成文档的工具，而GitHub Pages则是一个用于托管静态网页的平台。结合两者，可以自动地从代码生成文档，并部署到网页上供人查阅
@@ -45,7 +48,7 @@
 
 最后，您可以删除任何未使用的文件，例如独立的目录或与您的项目无关的github工作流程。请随意将许可证替换为适合您项目的许可证。
 
-为了清晰地分离库和子项目代码，外部的CMakeList.txt文件仅定义了库本身，而测试和其他子项目则包含在其自己的目录中。在开发过程中，通常方便的是[一次性构建所有子项目](#build-everything-at-once)。
+为了清晰地分离库和子项目代码，外部的CMakeList.txt文件仅定义了库本身，而测试和其他子项目则包含在其自己的目录中。在开发过程中，通常方便的是[一次性构建所有子项目](#一次性构建所有内容)。
 
 ### 构建并运行独立目标
 
