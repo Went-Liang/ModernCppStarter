@@ -55,7 +55,10 @@
 使用以下命令构建并运行可执行目标
 
 ```bash
-cmake -S standalone -B build/standalone
+# 从 standalone 目录读取源代码和CMakeLists.txt 文件，
+# 并将生成的构建系统（如 Makefile 或 Visual Studio 项目文件）输出到 build/standalone 录
+cmake -S standalone -B build/standalone 
+# 在 build/standalone 目录中执行构建过程
 cmake --build build/standalone
 ./build/standalone/Greeter --help
 ```
@@ -67,6 +70,10 @@ cmake --build build/standalone
 ```bash
 cmake -S test -B build/test
 cmake --build build/test
+
+# 在 build/test 目录下构建项目，
+# 并运行所有定义的测试（通过 test 目标）。
+# 如果任何测试失败，由于 CTEST_OUTPUT_ON_FAILURE=1 的设置，CTest 将显示这些失败测试的详细输出。
 CTEST_OUTPUT_ON_FAILURE=1 cmake --build build/test --target test
 
 # or simply call the executable: 

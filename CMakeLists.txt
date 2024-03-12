@@ -9,6 +9,8 @@ project(
   LANGUAGES CXX
 )
 
+message(STATUS "PROJECT_BINARY_DIR: ${PROJECT_BINARY_DIR}")
+
 # ---- Include guards ----
 # 检查项目的源代码目录（PROJECT_SOURCE_DIR）和构建目录（PROJECT_BINARY_DIR）是否相同。如果是相同的，那么它会输出一个致命错误消息，并终止CMake的配置过程。
 if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)

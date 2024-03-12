@@ -23,6 +23,7 @@ CPMAddPackage("gh:TheLartians/Format.cmake@1.7.3")
 
 # 如果TEST_INSTALLED_VERSION选项被设置为ON，则通过find_package查找并使用已安装的Greeter包
 if(TEST_INSTALLED_VERSION)
+  # set(Greeter_DIR "/home/lwt/proj/ModernCppStarter/build/" ${Greeter_DIR}) 
   find_package(Greeter REQUIRED)
 else()
   CPMAddPackage(NAME Greeter SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/..)
